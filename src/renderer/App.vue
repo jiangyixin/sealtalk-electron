@@ -20,6 +20,7 @@
   // import SelectContacts from './components/select-contacts/SelectContacts.vue'
   import { init } from './api/rcInit'
   import { getConversations, getTotalUnreadCount } from './api/rcMsg'
+  import cache from './utils/sessionStorage'
 
   export default {
     name: 'App',
@@ -56,38 +57,42 @@
       this.$store.dispatch('getUserProfile').then(resp => {
 
       })
-      this.$store.dispatch('getRCToken').then(resp => {
-        let that = this
-        let params = {
-          appKey : process.env.APP_KEY,
-          token : this.rcToken
-        }
-        init(params, {
-          getInstance: (instance) => {
-            console.log('---instance---')
-            getConversations().then(list => {
-              this.$store.commit('SET_CONVERSATIONS', list)
-              setTimeout(() => {
-                this.saveTempMessages()
+      if (cache.get('is-login')) {
+        this.$store.dispatch('getRCToken').then(resp => {
+          let that = this
+          let params = {
+            appKey : process.env.APP_KEY,
+            token : this.rcToken
+          }
+          console.log('getRCToken success resp:', resp)
+          init(params, {
+            getInstance: (instance) => {
+              getConversations().then(list => {
+                this.$store.commit('SET_CONVERSATIONS', list)
+                setTimeout(() => {
+                  this.saveTempMessages()
+                })
               })
-            })
 //            getTotalUnreadCount().then(count => {
 //
 //            })
-          },
-          receiveNewMessage: (message) => {
-            console.log('Receive New Message', message)
-            if (!this.initConversations) {
-              that.tempMessages.push(message)
-            } else {
-              this.$store.commit('RECEIVE_NEW_MESSAGE', message)
-            }
-          },
-          getCurrentUser: ({userId}) => {
+            },
+            receiveNewMessage: (message) => {
+              console.log('Receive New Message', message)
+              if (!this.initConversations) {
+                that.tempMessages.push(message)
+              } else {
+                this.$store.commit('RECEIVE_NEW_MESSAGE', message)
+              }
+            },
+            getCurrentUser: ({userId}) => {
 
-          }
+            }
+          })
+        }).catch(err => {
+          console.log('getRCToken err', err)
         })
-      })
+      }
     }
   }
 </script>

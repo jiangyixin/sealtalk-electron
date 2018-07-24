@@ -9,6 +9,9 @@ import 'element-ui/lib/theme-chalk/index.css'
 import cache from './utils/sessionStorage'
 import localCache from './utils/localStorage'
 
+// electron
+if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
+
 // import 'vue-awesome/icons/flag'
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
@@ -61,7 +64,7 @@ router.beforeEach((to, from, next) => {
 })
 
 window.onbeforeunload = function () {
-  if (typeof store.getters.objFriends === 'object') {
+  if (typeof store.getters.conversations === 'object') {
     localCache.set('rc-conversations', store.getters.conversations)
   }
   if (typeof store.getters.objFriends === 'object') {

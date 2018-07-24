@@ -139,7 +139,11 @@ let rendererConfig = {
 if (process.env.NODE_ENV !== 'production') {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
-      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
+      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`,
+      'process.env.NODE_ENV': '"development"',
+      'process.env.BASE_API': '"https://api.btclass.net/im"',
+      'process.env.LOGIN_URL': '"https://www2.btclass.net/admin/sealtalk"',
+      'process.env.APP_KEY': '"sfci50a7s4woi"'
     })
   )
 }
@@ -160,7 +164,10 @@ if (process.env.NODE_ENV === 'production') {
       }
     ]),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': '"production"',
+      'process.env.BASE_API': '"http://api.btclass.cn/im"',
+      'process.env.LOGIN_URL': '"https://www.btclass.cn/admin/sealtalk"',
+      'process.env.APP_KEY': '"y745wfm8y13tv"'
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true

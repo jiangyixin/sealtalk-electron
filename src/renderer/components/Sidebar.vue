@@ -2,7 +2,7 @@
   <el-aside width="70px" class="toolbar" style="height: 100%; float: left;">
     <div title="我" class="bar-item" @click="toMySetting">
       <div class="face">
-        <img v-if="userInfo.headimgurl" :src="userInfo.headimgurl" alt="">
+        <img v-if="userInfo" :src="userInfo.headimgurl" alt="">
         <img v-else="" src="../assets/image/head.png" alt="">
       </div>
     </div>

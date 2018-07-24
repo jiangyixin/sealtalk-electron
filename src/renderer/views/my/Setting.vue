@@ -6,7 +6,7 @@
     </el-header>
     <el-main>
       <div class="user-info">
-        <div class="user-data">
+        <div v-if="userInfo" class="user-data">
           <div class="photo">
             <img :src="userInfo.headimgurl" alt="">
           </div>

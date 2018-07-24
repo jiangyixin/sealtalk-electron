@@ -238,9 +238,14 @@ const rc = {
         return Promise.resolve(cache.get(key))
       } else {
         return getRCToken().then(data => {
-          commit('SET_RC_TOKEN', data.token)
-          cache.set(key, data.token)
-          return data.token
+          console.log('getRCToken data:', data)
+          if (data && data.token) {
+            commit('SET_RC_TOKEN', data.token)
+            cache.set(key, data.token)
+            return data.token
+          } else {
+            return Promise.reject(data)
+          }
         })
       }
     },

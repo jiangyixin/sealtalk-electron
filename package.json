@@ -1,6 +1,6 @@
 {
   "name": "sealtalk-electron",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "jiangyixin <540872052@qq.com>",
   "description": "An electron-vue project",
   "license": null,
@@ -95,7 +95,6 @@
     "webpack": "^3.5.2",
     "webpack-dev-server": "^2.7.1",
     "webpack-hot-middleware": "^2.18.2",
-
     "autoprefixer": "^7.1.2",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-plugin-syntax-jsx": "^6.18.0",

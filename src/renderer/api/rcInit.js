@@ -147,6 +147,7 @@ export function init(params, callbacks, modules) {
     }
   });
 
+  console.log('RongIMClient.connect token:', token)
   //开始链接
   RongIMClient.connect(token, {
     onSuccess: function(userId) {
